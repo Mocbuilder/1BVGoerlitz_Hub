@@ -1,4 +1,23 @@
 ﻿@page
 @model _1BVGoerlitz_Hub.Pages.KalenderModel
 @{
+    ViewData["Title"] = "Kalender -";
 }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Termine und Ausschreibungen</title>
+</head>
+<body>
+    <div>
+        <h1>Termine und Ausschreibungen</h1>
+        @foreach (var pdfPath in Model.PdfPaths)
+        {
+            <embed src="@pdfPath" type="application/pdf" width="100%" height="600px" />
+        }
+    </div>
+</body>
+</html>
