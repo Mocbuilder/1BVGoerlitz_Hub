@@ -1,5 +1,4 @@
 To-Do List
-(no formatting because its too late)
 
 - add calender functionality (idk how yet, but ill figure it out)
 - Server-Side Interface to upload new files ?
