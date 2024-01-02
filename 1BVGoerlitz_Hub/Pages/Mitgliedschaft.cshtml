@@ -3,39 +3,50 @@
 @{
     ViewData["Title"] = "Mitgliedschaft";
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
-<style>
-    .button-link {
-        display: inline-block;
-        padding: 10px 20px;
-        margin-top: 20px;
-        background-color: #fff;
-        color: #000;
-        text-decoration: none;
-        font-weight: bold;
-        border-radius: 20px;
-    }
+    <style>
+        .button-link {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #fff;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 20px;
+        }
 
-    .button-link:hover {
-            background-color: lred;
-            color: blue;
-    }
-</style>
+            .button-link:hover {
+                background-color: red; /* corrected typo */
+                color: blue;
+            }
+    </style>
+</head>
 <body style="background-color: lightblue">
+
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>
             <p style="font-weight: bold; font-size: 25px; font-family: 'Calibri';">Training</p>
             <p>Unser Training findet immer Dienstags und Donnerstags in der Emil-von-Schenkendorff-Turnalle, neben <br /> der Jägerkaserne, statt. Zum Reinschnuppern kannst du einfach per E-Mail nachfragen.<br />Unsere Trainingszeiten sind hier:</p>
             <pre style="font-family: 'Calibri'; font-size: 18px;">@Model.TrainingsTimeContent</pre>
         </div>
-        
+
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2502.3524085261!2d14.984986476297406!3d51.15729213621984!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4708dd4a14f7a98d%3A0x1556da085233b830!2sEmil%20von%20Schenckendorff%20Turnhalle!5e0!3m2!1sde!2sde!4v1702676476366!5m2!1sde!2sde" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <p style="font-weight: bold; font-size: 25px; font-family: 'Calibri';">Turniere</p>
+            <p>Bei uns ausgetragene Turniere finden meist in der Turnhalle des BSZ statt, ansonsten wird die Anfahrt vom Verein organisiert.<br />Termine für noch kommende Turniere kannst du <a href="/Kalender">hier</a> finden,<br />und Berichte von vergangenen Turnieren gibt es auf der <a href="http://rvoneu.bvsachsen.de/">Website des BV Sachsen</a>.</p>
+        </div>
+
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2503.0643847059596!2d14.9846464!3d51.1441638!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4708dc27006d1905%3A0x3a3163a63772320e!2sSattigstra%C3%9Fe%2010%2C%2002826%20G%C3%B6rlitz!5e0!3m2!1sde!2sde!4v1702750479692!5m2!1sde!2sde" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 
     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -46,7 +57,7 @@
         </div>
 
         <div>
-            <h3 style="font-weight: bold; font-size: 25px; margin-top: 11px; color: lightblue;">HEAVY METAL NECER DIES! SABATON FOREVER!</h3>
+            <h3 style="font-weight: bold; font-size: 25px; margin-top: 11px; color: lightblue;">HEAVY METAL NEVER DIES! SABATON FOREVER!</h3>
             <img src="/ImgContent/team2_1BVGoerlitz.jpg" alt="Img_Team2_Mitglieddschaft ----> Error 6: Image src lost. Please contact admin" height="350px" width="400px" />
             <p>Unsere 2. Manschaft, Hinten von links: Stefan Preibisch, Nina Eichler, Uwe Weichelt, Paul Wittig<br>Vorne von links: Thomas Hoyer, Nadine Kretschmer, Karsten Putschke</p>
         </div>
@@ -58,11 +69,10 @@
 
         <a href="https://www.dropbox.com/scl/fi/q5l9u33gt6n9mon1zcd83/Mitgliedsantrag-Formular.pdf?dl=1" download="Mitgliedsantrag-Formular.pdf">
             <button style="padding: 10px; background-color: white; color: black; border: none; border-radius: 5px; cursor: pointer;">
-                Download Mitgliedsantrag
+                Mitgliedsantrag herunterladen
             </button>
         </a>
     </div>
 
 </body>
-
 </html>
