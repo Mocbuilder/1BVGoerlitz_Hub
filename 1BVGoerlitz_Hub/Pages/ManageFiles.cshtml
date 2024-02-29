@@ -9,11 +9,12 @@
     <h2 style="text-decoration: underline">Neue Dateien Hochladen</h2>
     <p>Alle Dateien die hier hochgeladen sind werden auf der Kalender-Seite angezeigt. Bitte nur .pdf-Dateien hochladen.</p>
 
-    <form method="post" enctype="multipart/form-data" style="margin-bottom: 25px">
+    <form method="post" enctype="multipart/form-data" asp-page-handler="Upload">
         <div>
+            @Html.AntiForgeryToken()
             <label for="file">PDF-Dokument auswählen: </label>
             <input type="file" name="file" id="file" required />
-            <button type="submit">Hochladen</button>
+            <button type="submit" class="upload-button">Upload</button>
         </div>
     </form>
 

@@ -37,7 +37,7 @@ namespace _1BVGoerlitz_Hub.Pages
         public IActionResult OnPostCheckPassword()
         {
             // Retrieve the correct password from the configuration
-            var correctPassword = _configuration["AppSettings:AdminPassword"];
+            var correctPassword = _configuration["AppSettings:AdminPassword"].ToLower();
 
             IsPasswordCorrect = Password == correctPassword;
 
@@ -87,5 +87,34 @@ namespace _1BVGoerlitz_Hub.Pages
                 Console.WriteLine(ex.ToString());
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult OnPostUpload(IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                if (file.ContentType == "application/pdf" && file.Length <= 10485760)
+                {
+                    var pdfFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "EventPDF");
+                    var fileName = Path.Combine(pdfFolderPath, file.FileName);
+
+                    using (var stream = new FileStream(fileName, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    UpdatePdfPaths();
+                }
+                else
+                {
+                    ModelState.AddModelError("File", "Invalid file format or size");
+                    return RedirectToPage("/Index");
+                }
+            }
+
+            return RedirectToPage("/Kalender");
+        }
+
     }
 }
