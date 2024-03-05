@@ -8,11 +8,37 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\ImgContent\Logo_1BVGoerlitz.jpg" />
+    <None Include="wwwroot\ImgContent\Logo_1BVGoerlitz.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\EventPDF\2023-03-20-Entwurf-Terminplan-RVO.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\EventPDF\2023-08-01-Ausschreibungen-2023-2.Halbjahr.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\EventPDF\2023-2024-Punktspielansetzungen.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\ImgContent\Impressum_1BVGoerlitz.JPG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\ImgContent\OriginalLogo_1BVGoerlitz.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\ImgContent\team1_1BVGoerlitz.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\ImgContent\team2_1BVGoerlitz.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
