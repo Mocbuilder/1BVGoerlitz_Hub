@@ -1,6 +1,13 @@
 using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseKestrel(so =>
+{
+    so.Limits.MaxConcurrentConnections = 100;
+    so.Limits.MaxConcurrentUpgradedConnections = 100;
+    so.Limits.MaxRequestBodySize = 52428800;
+});
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -19,11 +26,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
-app.UseForwardedHeaders(new ForwardedHeadersOptions
-{
-    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-});
 
 app.UseAuthorization();
 
