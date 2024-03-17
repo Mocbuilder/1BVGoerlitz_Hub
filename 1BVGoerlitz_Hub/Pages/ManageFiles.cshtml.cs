@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
-
 
 namespace _1BVGoerlitz_Hub.Pages
 {
@@ -15,8 +16,6 @@ namespace _1BVGoerlitz_Hub.Pages
         public ManageFilesModel(IConfiguration configuration)
         {
             _configuration = configuration;
-
-            // Load sensitive information from the secure configuration file
             LoadSecureConfig();
         }
 
@@ -28,41 +27,50 @@ namespace _1BVGoerlitz_Hub.Pages
 
         public void OnGet()
         {
-            // If the password is not correct, do not load PdfPaths
             if (!IsPasswordCorrect) return;
-
             UpdatePdfPaths();
         }
 
         public IActionResult OnPostCheckPassword()
         {
-            // Retrieve the correct password from the configuration
             var correctPassword = _configuration["AppSettings:AdminPassword"].ToLower();
-
             IsPasswordCorrect = Password == correctPassword;
-
-            if (!IsPasswordCorrect)
-            {
-                // Redirect to the homepage if the password is incorrect
-                return RedirectToPage("/Index");
-            }
-
-            // Continue to display the Manage Files content
+            if (Password == correctPassword) IsPasswordCorrect = true;
+            if (!IsPasswordCorrect) return RedirectToPage("/Index");
             UpdatePdfPaths();
             return Page();
         }
 
+        public IActionResult OnPostDelete(string path)
+        {
+            if (!IsPasswordCorrect) return Forbid();
+            try
+            {
+                if (!string.IsNullOrEmpty(path) && System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                    UpdatePdfPaths();
+                    return RedirectToPage();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while deleting the file: {ex.Message}");
+            }
+        }
 
         private void UpdatePdfPaths()
         {
             var pdfFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "EventPDF");
-
             PdfPaths = Directory.GetFiles(pdfFolderPath, "*.pdf")
                 .Select(filePath => GetRelativePath(filePath))
                 .ToList();
         }
 
-        // Helper method to get the relative path of a file
         private string GetRelativePath(string filePath)
         {
             var wwwRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
@@ -71,9 +79,8 @@ namespace _1BVGoerlitz_Hub.Pages
 
         private void LoadSecureConfig()
         {
-            var contentRoot = (_configuration as IWebHostEnvironment)?.ContentRootPath ?? Directory.GetCurrentDirectory();
+            var contentRoot = (_configuration as Microsoft.AspNetCore.Hosting.IWebHostEnvironment)?.ContentRootPath ?? Directory.GetCurrentDirectory();
             var secureConfigPath = Path.Combine(contentRoot, "SecureConfig.json");
-
             try
             {
                 if (System.IO.File.Exists(secureConfigPath))
@@ -90,7 +97,7 @@ namespace _1BVGoerlitz_Hub.Pages
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult OnPostUpload(IFormFile file)
+        public IActionResult OnPostUpload(Microsoft.AspNetCore.Http.IFormFile file)
         {
             if (file != null && file.Length > 0)
             {
@@ -98,12 +105,10 @@ namespace _1BVGoerlitz_Hub.Pages
                 {
                     var pdfFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "EventPDF");
                     var fileName = Path.Combine(pdfFolderPath, file.FileName);
-
                     using (var stream = new FileStream(fileName, FileMode.Create))
                     {
                         file.CopyTo(stream);
                     }
-
                     UpdatePdfPaths();
                 }
                 else
@@ -112,9 +117,7 @@ namespace _1BVGoerlitz_Hub.Pages
                     return RedirectToPage("/Index");
                 }
             }
-
             return RedirectToPage("/Kalender");
         }
-
     }
 }

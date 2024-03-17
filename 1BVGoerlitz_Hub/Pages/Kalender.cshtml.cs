@@ -21,7 +21,6 @@ namespace _1BVGoerlitz_Hub.Pages
                 .ToList();
         }
 
-        // Helper method to get the relative path of a file
         private string GetRelativePath(string filePath)
         {
             var wwwRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");

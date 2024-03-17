@@ -7,7 +7,7 @@ builder.WebHost.UseKestrel(so =>
     so.Limits.MaxConcurrentUpgradedConnections = 100;
     so.Limits.MaxRequestBodySize = 52428800;
 });
-builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
